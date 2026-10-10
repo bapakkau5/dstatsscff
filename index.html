@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunung Roblox - Analytics Test</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0A0A0F;
+            color: #FFFFFF;
+            font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .box {
+            max-width: 500px;
+            width: 100%;
+            background: rgba(30, 15, 50, 0.6);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #A78BFA;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        p {
+            color: #B8B8D1;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .stat {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            border-radius: 12px;
+            padding: 15px 10px;
+        }
+        .stat .label {
+            font-size: 0.6rem;
+            color: #8A8AA3;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+        .stat .value {
+            font-size: 0.9rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .status {
+            display: inline-block;
+            padding: 8px 22px;
+            background: rgba(0, 255, 157, 0.1);
+            border: 1px solid rgba(0, 255, 157, 0.3);
+            border-radius: 9999px;
+            color: #00FF9D;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+        .status::before {
+            content: '● ';
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .footer {
+            margin-top: 25px;
+            font-size: 0.7rem;
+            color: #6A6A83;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>Gunung Roblox</h1>
+        <p>Test page buat Cloudflare Analytics.<br>Buka dari device berbeda — cek data di Cloudflare.</p>
+        
+        <div class="grid">
+            <div class="stat">
+                <div class="label">Waktu Load</div>
+                <div class="value" id="time">-</div>
+            </div>
+            <div class="stat">
+                <div class="label">Device</div>
+                <div class="value" id="device">-</div>
+            </div>
+            <div class="stat">
+                <div class="label">Browser</div>
+                <div class="value" id="browser">-</div>
+            </div>
+            <div class="stat">
+                <div class="label">Screen</div>
+                <div class="value" id="screen">-</div>
+            </div>
+            <div class="stat">
+                <div class="label">Timezone</div>
+                <div class="value" id="timezone">-</div>
+            </div>
+            <div class="stat">
+                <div class="label">Language</div>
+                <div class="value" id="lang">-</div>
+            </div>
+        </div>
+        
+        <div class="status">Online</div>
+        <div class="footer">Powered by Cloudflare Pages</div>
+    </div>
+    
+    <script>
+        document.getElementById('time').textContent = new Date().toLocaleTimeString('id-ID');
+        
+        const ua = navigator.userAgent;
+        let device = 'Desktop';
+        if (/Mobi|Android/i.test(ua)) device = 'Mobile';
+        else if (/Tablet|iPad/i.test(ua)) device = 'Tablet';
+        document.getElementById('device').textContent = device;
+        
+        let browser = 'Other';
+        if (ua.includes('Edg/')) browser = 'Edge';
+        else if (ua.includes('Chrome')) browser = 'Chrome';
+        else if (ua.includes('Firefox')) browser = 'Firefox';
+        else if (ua.includes('Safari')) browser = 'Safari';
+        document.getElementById('browser').textContent = browser;
+        
+        document.getElementById('screen').textContent = window.screen.width + '×' + window.screen.height;
+        document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('lang').textContent = navigator.language;
+    </script>
+</body>
+</html>
